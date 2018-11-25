@@ -294,7 +294,8 @@ function loop() {
     
     g.save()
     g.scale(scale, scale)
-    g.translate((-rocket.x + c.width / 2) / scale, (-rocket.y + c.height / 2) / scale)
+    g.translate(-rocket.x + (c.width / 2 / scale), -rocket.y + (c.height / 2 / scale))   
+   
     
     g.beginPath()
     for (var i = 0; i < moon_trace.length; i++) {
