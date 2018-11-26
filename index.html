@@ -26,16 +26,17 @@ c.height = window.innerHeight
 document.body.append(c)
 var g = c.getContext('2d')
 
-var G = 100
+var G = 10000
 var fuel = 100
 
 var planets = [ 0,
-    // { x : c.width,
-    // y : c.height ,
-    // r : 67864.427,
-    // m : 1989000,
-    // gr : 'yellow',
-    // at : 'rgba(200, 0, 0, 0.2)'
+
+//     { x : c.width / 2,
+//     y : c.height / 2 ,
+//     r : 67864.427,
+//     m : 1989000,
+//     gr : 'yellow',
+//     at : 'rgba(200, 0, 0, 0.2)'
 // }, 
 { x : c.width / 2,
     y : c.height + 4580,
@@ -48,27 +49,28 @@ var planets = [ 0,
     y : c.height + 3100,
     r : 6052,
     m : 4.87,
-    gr : 'yellow',
+    gr : 'pink',
     at : 'rgba(255, 255, 0, 0.5)'
 },
-   { x : c.width / 2,
+  { x : c.width / 2,
     y : c.height / 2,
-    r : 50 / 2,
-    m : 10,
+    r : 12756 / 2,
+    m : 5.97,
     gr : 'blue',
     at : 'rgba(0, 0, 255, 0.5)'
-},{
+},
+{
     x : c.width / 2,
     y : c.height - 2000,
-    r : 30,
-    m : 7,
+    r : 6792 / 2,
+    m : 0.642,
     gr : 'red',
     at : 'rgba(245, 0, 0, 0.3)'
 },
  { x : c.width / 2,
     y : c.height - 5000,
-    r : 300,
-    m : 70,
+    r : 142984 / 2,
+    m : 1898,
     gr : 'rgba(153,90,0)',
     at : 'rgba(153, 76, 0, 0.5)',
     sl : true
@@ -108,10 +110,10 @@ var planets = [ 0,
 var moon = {
     x : c.width / 2,
     y : c.height / 8,
-    r : 10,
+    r : 3475 / 2,
     xs : -18.5,
     ys :0,
-    m : 0.001
+    m : 0.073 	
 }
 
 var rocket = null
