@@ -26,45 +26,46 @@ c.height = window.innerHeight
 document.body.append(c)
 var g = c.getContext('2d')
 
-var G = 10000
+var G = 100
+var fuel = 100
 
-var planets = [ 
-    { x : c.width / 2,
-    y : c.height + 7000,
-    r : 2000,
-    m : 1000,
-    gr : 'yellow',
-    at : 'rgba(200, 0, 0, 0.2)'
-}, 
-{ x : c.width + 90,
+var planets = [ 0,
+    // { x : c.width,
+    // y : c.height ,
+    // r : 67864.427,
+    // m : 1989000,
+    // gr : 'yellow',
+    // at : 'rgba(200, 0, 0, 0.2)'
+// }, 
+{ x : c.width / 2,
     y : c.height + 4580,
-    r : 10,
-    m : 3,
+    r : 2439.5,
+    m : 0.330,
     gr : 'rgba(230,100,70)',
     at : 'rgba(230, 100, 80, 0.5)'
 },
-{ x : c.width / 6,
+{ x : c.width / 2,
     y : c.height + 3100,
-    r : 45,
-    m : 9.5,
+    r : 6052,
+    m : 4.87,
     gr : 'yellow',
     at : 'rgba(255, 255, 0, 0.5)'
 },
    { x : c.width / 2,
     y : c.height / 2,
-    r : 50,
+    r : 50 / 2,
     m : 10,
     gr : 'blue',
     at : 'rgba(0, 0, 255, 0.5)'
 },{
-    x : c.width / 4,
+    x : c.width / 2,
     y : c.height - 2000,
     r : 30,
     m : 7,
     gr : 'red',
     at : 'rgba(245, 0, 0, 0.3)'
 },
- { x : c.width / 9,
+ { x : c.width / 2,
     y : c.height - 5000,
     r : 300,
     m : 70,
@@ -72,7 +73,7 @@ var planets = [
     at : 'rgba(153, 76, 0, 0.5)',
     sl : true
 },
- { x : c.width / 20,
+ { x : c.width / 2,
     y : c.height - 10000,
     r : 289,
     m : 67,
@@ -83,7 +84,7 @@ var planets = [
     rgrc : 300,
     rgrt : 500,
 },
-{ x : c.width + 50,
+{ x : c.width + 2,
     y : c.height - 17000,
     r : 150,
     m : 68,
@@ -178,9 +179,13 @@ function loop() {
         var planet = planets[i]
         if (planet == 0)continue
         if (Math.sqrt(Math.pow(planet.x - rocket.x, 2) + Math.pow(planet.y - rocket.y, 2)) < planet.r) {
-            if (!planet.sl)
+            if (!planet.sl){
             
-               make_planet(planet)
+               make_planet(planet) 
+               if(fuel < 100){
+               fuel = fuel + 0.5
+               }
+            }
         }
     }
     
@@ -247,9 +252,12 @@ function loop() {
         rocket.y += rocket.ys * dt
     }
 
-    if (keys.up) {
+    if (keys.up) {if (fuel > 0){
         rocket.xs += Math.cos(rocket.direction + Math.PI/2) * 10 * dt
         rocket.ys += Math.sin(rocket.direction + Math.PI/2) * 10 * dt
+        fuel = fuel - 0.1
+        }
+        
     }
     if (keys.left) {
         rocket.direction -= 0.05
@@ -290,7 +298,8 @@ function loop() {
     g.font = "30px Arial";
     g.strokeText("Flying shuttle " + ship + " Good luck! Velocity is..." + speed ,10,50); 
     
-     g.strokeText('The closest planet is ' +Math.floor(closest_dis) + ' pixels away!',0,80); 
+     g.strokeText('The closest planet is ' +Math.floor(closest_dis) + ' pixels away!',0,80);
+       g.strokeText('Fuel: ' + fuel + '',0,120);
     
     g.save()
     g.scale(scale, scale)
@@ -410,7 +419,8 @@ window.onkeydown = function (e) {
     if (e.code == 'ArrowDown')
         keys.down = true
     if (e.code == 'KeyR'){
-        reset_rocket()
+        reset_rocket() 
+        fuel = 100
          ship =Math.floor(Math.random()*1000) }
     if (e.code == 'Minus')
         scale /= 1.1
