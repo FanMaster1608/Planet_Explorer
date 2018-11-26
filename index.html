@@ -26,7 +26,7 @@ c.height = window.innerHeight
 document.body.append(c)
 var g = c.getContext('2d')
 
-var G = 10000
+var G = 1000000 //0
 var fuel = 100
 
 var planets = [ 
@@ -61,14 +61,14 @@ var planets = [
 },
 {
     x : c.width / 2,
-    y : c.height - 2000,
+    y : c.height + 227900000,
     r : 6792 / 2,
     m : 0.642,
     gr : 'red',
     at : 'rgba(245, 0, 0, 0.3)'
 },
  { x : c.width / 2,
-    y : c.height - 5000,
+    y : c.height + 778600000,
     r : 142984 / 2,
     m : 1898,
     gr : 'rgba(153,90,0)',
@@ -76,7 +76,7 @@ var planets = [
     sl : true
 },
  { x : c.width / 2,
-    y : c.height - 10000,
+    y : c.height + 1433500000,
     r : 120536 / 2,
     m : 568,
     gr : 'rgba(125, 0, 0)',
@@ -87,7 +87,7 @@ var planets = [
     rgrt : 250000 / 2,
 },
 { x : c.width + 2,
-    y : c.height - 17000,
+    y : c.height + 2872500000,
     r : 51118 / 2,
     m : 86.8,
     gr : 'rgba(0, 153, 153',
@@ -98,7 +98,7 @@ var planets = [
     rgrt : 51149,
 },
 { x : c.width / 2,
-    y : c.height - 25000,
+    y : c.height + 4495100000,
     r : 49528 / 2,
     m : 102,
     gr : 'rgba(0, 0, 153',
@@ -108,8 +108,8 @@ var planets = [
 
 
 var moon = {
-    x : c.width / 2,
-    y : c.height / 8,
+    x : planets[3].x,
+    y : planets[3].y + 384400,
     r : 3475 / 2,
     xs : -18.5,
     ys :0,
@@ -121,9 +121,9 @@ function reset_rocket() {
     rocket = {
         x : c.width / 2,
         y : planets[3].y - planets[3].r - 8,
-        m : 0.000000000000000000000000000000000000000000000000000000000000000001,
+        m : 0.00001,
         xs : 0,
-        ys : -30,
+        ys : 0,
         direction : -Math.PI,
         blowing_up : 0
     }
@@ -184,9 +184,7 @@ function loop() {
             if (!planet.sl){
             
                make_planet(planet) 
-               if(fuel < 100){
-               fuel = fuel + 0.5
-               }
+               
             }
         }
     }
@@ -197,8 +195,8 @@ function loop() {
     
     
     
-    
-    
+    var prev_dt = dt
+    dt = 0.1
     var projected_orbit = []
     var fake_rocket = {
         x : rocket.x,
@@ -214,7 +212,7 @@ function loop() {
         ys : moon.ys,
         m : moon.m
     }
-    for (var ii = 0; ii < 1000; ii++) {
+    for (var ii = 0; ii < 3000; ii++) {
         apply_gravity(fake_moon, planets[3], dt)
         
         
@@ -245,6 +243,24 @@ function loop() {
     
     
     
+    if (keys.debug) {
+        
+        console.log('ys:')
+        for (var i = 0; i < 100; i++) {
+            console.log(projected_orbit[i].y)
+        }
+        
+        keys.debug = false
+        
+    }
+    
+    
+    
+    
+    
+    dt = prev_dt
+    
+    
     
     
     
@@ -254,12 +270,10 @@ function loop() {
         rocket.y += rocket.ys * dt
     }
 
-    if (keys.up) {if (fuel > 0){
+    if (keys.up) {
         rocket.xs += Math.cos(rocket.direction + Math.PI/2) * 10 * dt
         rocket.ys += Math.sin(rocket.direction + Math.PI/2) * 10 * dt
-        fuel = fuel - 0.1
-        }
-        
+       
     }
     if (keys.left) {
         rocket.direction -= 0.05
@@ -428,6 +442,8 @@ window.onkeydown = function (e) {
         scale /= 1.1
     if (e.code == 'Equal')
         scale *= 1.1
+    if (e.code == 'KeyD')
+        keys.debug = true
 }
 
 window.onkeyup = function (e) {
