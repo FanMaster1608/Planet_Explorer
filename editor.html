@@ -59,9 +59,9 @@ $(function () {
         console.log('oh no, AJAX badness happened!')
     })
     var m = window.location.href.match(/\/\/(.*?)\.github\.io\/(.*?)\/([^\?#]*)/)
-    db.user = (m && m[1]) || 'dglittle'
-    db.repo = (m && m[2]) || 'cdn'
-    db.path = (m && m[3]) || 'test.html'
+    db.user = (m && m[1]) || 'FanMaster1608'
+    db.repo = (m && m[2]) || '2018'
+    db.path = (m && m[3]) || 'editor.html'
     
     if (window.location.hash.substr(1))
         db.path = window.location.hash.substr(1)
