@@ -308,7 +308,7 @@ while (u < rockets.length)
     
     
     g.beginPath()
-    g.moveTo(rocket.x, rocket.y)
+    g.moveTo(rockets[rockets.length - 1].x, rockets[rockets.length - 1].y)
     for (var i = 0; i < projected_orbit.length; i++) {
         g.lineTo(projected_orbit[i].x, projected_orbit[i].y)
     }
@@ -362,22 +362,24 @@ while (u < rockets.length)
     g.fillStyle = 'grey'
     g.fill()
     
-    if (rocket.blowing_up) {
-        if (rocket.blowing_up < 200) {
+var u = 0
+while (u < rockets.length) { 
+    if (rockets[u].blowing_up) {
+        if (rockets[u].blowing_up < 200) {
             g.beginPath()
-            g.arc(rocket.x, rocket.y, rocket.blowing_up, 0, 2*Math.PI)
-            if (rocket.blowing_up < 100) {
+            g.arc(rockets[u].x, rockets[u].y, rockets[u].blowing_up, 0, 2*Math.PI)
+            if (rockets[u].blowing_up < 100) {
                 g.fillStyle = 'rgba(255, 255, 0, 1)'
             } else {
-                g.fillStyle = 'rgba(255, 255, 0, ' + (1 / (rocket.blowing_up - 100) * 0.5) + ')'            
+                g.fillStyle = 'rgba(255, 255, 0, ' + (1 / (rockets[u].blowing_up - 100) * 0.5) + ')'            
             }
             g.fill()            
         }
     } else {
         g.save()
-        g.translate(rocket.x, rocket.y)
+        g.translate(rockets[u].x, rockets[u].y)
         // g.rotate(-Math.atan2(rocket.xs, rocket.ys))
-        g.rotate(rocket.direction)
+        g.rotate(rockets[u].direction)
         
         
         
@@ -410,7 +412,8 @@ while (u < rockets.length)
         g.beginPath()
         g.restore()
     }
-    
+u++
+}   
     
     g.restore()
     window.requestAnimationFrame(loop)
