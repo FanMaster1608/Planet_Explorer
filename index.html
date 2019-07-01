@@ -290,9 +290,11 @@ function loop() {
         g.strokeStyle = 'white'
     g.font = "30px Arial";
     g.strokeText("Flying shuttle " + ship + " Good luck! Velocity is..." + speed ,10,50); 
-    
+
      g.strokeText('The closest planet is ' +Math.floor(closest_dis) + ' pixels away!',0,80);
        g.strokeText('Fuel: ' + fuel + '',0,120);
+    
+    
     
     g.save()
     g.scale(scale, scale)
