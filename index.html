@@ -3,17 +3,17 @@
 <body style="margin:0px"></body>
 <script>
 function make_planet(planetn){
-//   var planetn_center = vec2.fromValues(planetn.x, planetn.y)
-//         var our_location = vec2.fromValues(rocket.x, rocket.y)
-//         var from_us_to_center = vec2.subtract(vec2.create(), planetn_center, our_location)
-//         vec2.normalize(from_us_to_center, from_us_to_center)
-//         var our_velocity = vec2.fromValues(rocket.xs, rocket.ys)
-//         var dot = vec2.dot(from_us_to_center, our_velocity)
-//         vec2.scale(from_us_to_center, from_us_to_center, dot)
-//         vec2.subtract(our_velocity, our_velocity, from_us_to_center)
+  var planetn_center = vec2.fromValues(planetn.x, planetn.y)
+        var our_location = vec2.fromValues(rockets[rockets.length - 1].x, rockets[rockets.length - 1].y)
+        var from_us_to_center = vec2.subtract(vec2.create(), planetn_center, our_location)
+        vec2.normalize(from_us_to_center, from_us_to_center)
+        var our_velocity = vec2.fromValues(rockets[rockets.length - 1].xs, rockets[rockets.length - 1].ys)
+        var dot = vec2.dot(from_us_to_center, our_velocity)
+        vec2.scale(from_us_to_center, from_us_to_center, dot)
+        vec2.subtract(our_velocity, our_velocity, from_us_to_center)
         
-//         rocket.xs = our_velocity[0]
-//         rocket.ys = our_velocity[1] 
+        rockets[rockets.length - 1].xs = our_velocity[0]
+        rockets[rockets.length - 1].ys = our_velocity[1] 
         }
 var c = document.createElement('canvas')
 c.width = window.innerWidth
