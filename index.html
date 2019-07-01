@@ -105,9 +105,9 @@ var moon = {
     ys :0,
     m : 0.7 / 30	
 }
-var rocket = null
+var rockets = []
 function reset_rocket() {
-    rocket = {
+    rockets.push ({
         x : c.width / 2,
         y : planets[3].y - planets[3].r - 8,
         m : 0.00001,
@@ -115,7 +115,7 @@ function reset_rocket() {
         ys : 0,
         direction : -Math.PI,
         blowing_up : 0
-    }
+    })
 }
 reset_rocket()
 var keys = {
@@ -142,26 +142,25 @@ function loop() {
     
     apply_gravity(moon, planets[3], dt)
     
-   
-    if (!rocket.blowing_up && Math.sqrt(Math.pow(moon.x - rocket.x, 2) + Math.pow(moon.y - rocket.y, 2)) < moon.r) {make_planet(moon)}
-  
-    if (!rocket.blowing_up) {
+var u = 0
+while (u < rockets.length) {
+    if (!rockets[u].blowing_up) {
         for(var i = 0; i < planets.length; i++){
             var planet = planets[i]
             if( planet == 0)continue
-            apply_gravity(rocket, planet, dt)
+            apply_gravity(rockets[u], planet, dt)
         
         
         }
-        apply_gravity(rocket, moon, dt)
+        apply_gravity(rockets[u], moon, dt)
     } else {
-        rocket.blowing_up++
+        rockets[u].blowing_up++
     }
     
      for(var i = 0; i < planets.length; i++){
         var planet = planets[i]
         if (planet == 0)continue
-        if (Math.sqrt(Math.pow(planet.x - rocket.x, 2) + Math.pow(planet.y - rocket.y, 2)) < planet.r) {
+        if (Math.sqrt(Math.pow(planet.x - rockets[u].x, 2) + Math.pow(planet.y - rockets[u].y, 2)) < planet.r) {
             if (!planet.sl){
             
                make_planet(planet) 
@@ -169,7 +168,8 @@ function loop() {
             }
         }
     }
-    
+u++
+}
     moon.x += moon.xs * dt
     moon.y += moon.ys * dt
     
@@ -179,12 +179,12 @@ function loop() {
     var prev_dt = dt
     dt = 0.1
     var projected_orbit = []
-    var fake_rocket = {
-        x : rocket.x,
-        y : rocket.y,
-        xs : rocket.xs,
-        ys : rocket.ys,
-        m : rocket.m
+    var fake_rocket= {
+        x : rockets[rockets.length - 1] .x,
+        y : rockets[rockets.length - 1] .y,
+        xs : rockets[rockets.length - 1] .xs,
+        ys : rockets[rockets.length - 1] .ys,
+        m : rockets[rockets.length - 1] .m
     }
     var fake_moon = {
         x : moon.x,
@@ -242,23 +242,23 @@ function loop() {
     dt = prev_dt
     
     
-    
-    
-    
-    if (!rocket.blowing_up) {
-        rocket.x += rocket.xs * dt
-        rocket.y += rocket.ys * dt
-    }
+var u = 0    
+while (u < rockets.length)      
+    if (!rockets[u].blowing_up) {
+        rockets[u].x += rockets[u].xs * dt
+        rockets[u].y += rockets[u].ys * dt
+   u++
+   }
     if (keys.up) {
-        rocket.xs += Math.cos(rocket.direction + Math.PI/2) * 10 * dt
-        rocket.ys += Math.sin(rocket.direction + Math.PI/2) * 10 * dt
+        rockets[rockets.length - 1].xs += Math.cos(rockets[rockets.length - 1].direction + Math.PI/2) * 10 * dt
+        rockets[rockets.length - 1].ys += Math.sin(rockets[rockets.length - 1].direction + Math.PI/2) * 10 * dt
        
     }
     if (keys.left) {
-        rocket.direction -= 0.05
+        rockets[rockets.length - 1].direction -= 0.05
     }
     if (keys.right) {
-        rocket.direction += 0.05
+        rockets[rockets.length - 1].direction += 0.05
     }
     moon_trace.push({
         x : moon.x,
@@ -274,7 +274,7 @@ function loop() {
      for(var i = 0; i < planets.length; i++){
         var planet = planets[i]
         if( planet == 0)continue 
-        var distance = Math.sqrt(Math.pow(rocket.x - planet.x,2)+Math.pow(rocket.y - planet.y,2))
+        var distance = Math.sqrt(Math.pow(rockets[rockets.length - 1].x - planet.x,2)+Math.pow(rockets[rockets.length - 1].y - planet.y,2))
         if (distance < closest_dis){
             closest_dis = distance
             closest_planet = planet
@@ -283,7 +283,7 @@ function loop() {
         }
   
   
-    var speed = Math.floor(Math.sqrt(Math.pow(rocket.xs,2)+Math.pow(rocket.ys,2)))
+    var speed = Math.floor(Math.sqrt(Math.pow(rockets[rockets.length - 1].xs,2)+Math.pow(rockets[rockets.length - 1].ys,2)))
     
   
         g.strokeStyle = 'white'
@@ -295,7 +295,7 @@ function loop() {
     
     g.save()
     g.scale(scale, scale)
-    g.translate(-rocket.x + (c.width / 2 / scale), -rocket.y + (c.height / 2 / scale))   
+    g.translate(-rockets[rockets.length - 1].x + (c.width / 2 / scale), -rockets[rockets.length - 1].y + (c.height / 2 / scale))   
    
     
     g.beginPath()
