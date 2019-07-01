@@ -142,34 +142,34 @@ function loop() {
     
     apply_gravity(moon, planets[3], dt)
     
-var u = 0
-while (u < rockets.length) {
-    if (!rockets[u].blowing_up) {
+    var u = 0
+    while (u < rockets.length) {
+        if (!rockets[u].blowing_up) {
+            for(var i = 0; i < planets.length; i++){
+                var planet = planets[i]
+                if( planet == 0)continue
+                apply_gravity(rockets[u], planet, dt)
+            
+            
+            }
+            apply_gravity(rockets[u], moon, dt)
+        } else {
+            rockets[u].blowing_up++
+        }
+        
         for(var i = 0; i < planets.length; i++){
             var planet = planets[i]
-            if( planet == 0)continue
-            apply_gravity(rockets[u], planet, dt)
-        
-        
-        }
-        apply_gravity(rockets[u], moon, dt)
-    } else {
-        rockets[u].blowing_up++
-    }
-    
-     for(var i = 0; i < planets.length; i++){
-        var planet = planets[i]
-        if (planet == 0)continue
-        if (Math.sqrt(Math.pow(planet.x - rockets[u].x, 2) + Math.pow(planet.y - rockets[u].y, 2)) < planet.r) {
-            if (!planet.sl){
-            
-               make_planet(planet) 
-               
+            if (planet == 0)continue
+            if (Math.sqrt(Math.pow(planet.x - rockets[u].x, 2) + Math.pow(planet.y - rockets[u].y, 2)) < planet.r) {
+                if (!planet.sl){
+                
+                   make_planet(planet) 
+                   
+                }
             }
         }
+        u++
     }
-u++
-}
     moon.x += moon.xs * dt
     moon.y += moon.ys * dt
     
@@ -242,13 +242,14 @@ u++
     dt = prev_dt
     
     
-var u = 0    
-while (u < rockets.length)      
-    if (!rockets[u].blowing_up) {
-        rockets[u].x += rockets[u].xs * dt
-        rockets[u].y += rockets[u].ys * dt
-   u++
-   }
+    var u = 0    
+    while (u < rockets.length) {
+        if (!rockets[u].blowing_up) {
+            rockets[u].x += rockets[u].xs * dt
+            rockets[u].y += rockets[u].ys * dt
+        }
+        u++
+    }
     if (keys.up) {
         rockets[rockets.length - 1].xs += Math.cos(rockets[rockets.length - 1].direction + Math.PI/2) * 10 * dt
         rockets[rockets.length - 1].ys += Math.sin(rockets[rockets.length - 1].direction + Math.PI/2) * 10 * dt
@@ -362,58 +363,58 @@ while (u < rockets.length)
     g.fillStyle = 'grey'
     g.fill()
     
-var u = 0
-while (u < rockets.length) { 
-    if (rockets[u].blowing_up) {
-        if (rockets[u].blowing_up < 200) {
-            g.beginPath()
-            g.arc(rockets[u].x, rockets[u].y, rockets[u].blowing_up, 0, 2*Math.PI)
-            if (rockets[u].blowing_up < 100) {
-                g.fillStyle = 'rgba(255, 255, 0, 1)'
-            } else {
-                g.fillStyle = 'rgba(255, 255, 0, ' + (1 / (rockets[u].blowing_up - 100) * 0.5) + ')'            
+    var u = 0
+    while (u < rockets.length) { 
+        if (rockets[u].blowing_up) {
+            if (rockets[u].blowing_up < 200) {
+                g.beginPath()
+                g.arc(rockets[u].x, rockets[u].y, rockets[u].blowing_up, 0, 2*Math.PI)
+                if (rockets[u].blowing_up < 100) {
+                    g.fillStyle = 'rgba(255, 255, 0, 1)'
+                } else {
+                    g.fillStyle = 'rgba(255, 255, 0, ' + (1 / (rockets[u].blowing_up - 100) * 0.5) + ')'            
+                }
+                g.fill()            
             }
-            g.fill()            
+        } else {
+            g.save()
+            g.translate(rockets[u].x, rockets[u].y)
+            // g.rotate(-Math.atan2(rocket.xs, rocket.ys))
+            g.rotate(rockets[u].direction)
+            
+            
+            
+            g.beginPath()
+            g.moveTo(0, 3)
+            g.lineTo(2, 0)
+            g.lineTo(2, -5)
+            g.lineTo(4, -8)
+            g.lineTo(-4, -8)
+            g.lineTo(-2, -5)
+            g.lineTo(-2, 0)
+            g.fillStyle = 'white'
+            g.fill()
+            
+            if(keys.up == true) {
+            g.beginPath()
+            g.moveTo(-1, -8)
+            g.lineTo(-2, -10)
+            g.lineTo(2, -10)
+            g.lineTo(1, -8)
+            g.fillStyle = 'yellow'
+            g.fill()
+            }
+            
+            
+            
+            
+            
+            
+            g.beginPath()
+            g.restore()
         }
-    } else {
-        g.save()
-        g.translate(rockets[u].x, rockets[u].y)
-        // g.rotate(-Math.atan2(rocket.xs, rocket.ys))
-        g.rotate(rockets[u].direction)
-        
-        
-        
-        g.beginPath()
-        g.moveTo(0, 3)
-        g.lineTo(2, 0)
-        g.lineTo(2, -5)
-        g.lineTo(4, -8)
-        g.lineTo(-4, -8)
-        g.lineTo(-2, -5)
-        g.lineTo(-2, 0)
-        g.fillStyle = 'white'
-        g.fill()
-        
-        if(keys.up == true) {
-        g.beginPath()
-        g.moveTo(-1, -8)
-        g.lineTo(-2, -10)
-        g.lineTo(2, -10)
-        g.lineTo(1, -8)
-        g.fillStyle = 'yellow'
-        g.fill()
-        }
-        
-        
-        
-        
-        
-        
-        g.beginPath()
-        g.restore()
-    }
-u++
-}   
+        u++
+    }   
     
     g.restore()
     window.requestAnimationFrame(loop)
