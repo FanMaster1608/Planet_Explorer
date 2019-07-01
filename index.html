@@ -125,6 +125,7 @@ var keys = {
     down : false
 }
 var scale = 1
+var timewarp = 1
 var moon_trace = []
 function apply_gravity(apply_to, from_this, dt) {
     var r = Math.sqrt(Math.pow(apply_to.x - from_this.x, 2) + Math.pow(apply_to.y - from_this.y, 2))
@@ -137,7 +138,7 @@ function apply_gravity(apply_to, from_this, dt) {
   
 function loop() {
     // var dt = 0.005
-    var dt = 0.05
+    var dt = 0.05 * timewarp
     
     apply_gravity(moon, planets[3], dt)
     
@@ -416,6 +417,23 @@ function loop() {
 }
 window.requestAnimationFrame(loop)
 window.onkeydown = function (e) {
+    
+    if (e.code == 'Comma') {
+        timewarp = timewarp - 0.5
+        if (timewarp < 1) {timewarp = 1}
+    }
+    if (e.code == 'Period') {
+        timewarp = timewarp + 0.5
+            if (timewarp > 15) {timewarp = 15}
+    }
+    if (e.code == 'Slash') {
+        timewarp = 1
+    }
+    if (e.code == 'KeyP') {
+        if (timewarp < 1) {timewarp = 1} else {
+        timewarp = 0
+        }
+    }
     if (e.code == 'ArrowLeft')
         keys.left = true
     if (e.code == 'ArrowRight')
