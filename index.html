@@ -20,7 +20,7 @@ c.width = window.innerWidth
 c.height = window.innerHeight
 document.body.append(c)
 var g = c.getContext('2d')
-var G = 10000000 //0
+var G = 1000800 //0
 var fuel = 100
 var planets = [ 
     { x : c.width / 2,
@@ -53,7 +53,7 @@ var planets = [
 },
 {
     x : c.width / 2,
-    y : c.height + 227900000 / 30,
+    y : c.height + 22790000 / 30,
     r : (6792 / 2) / 30,
     m : 0.642 / 30,
     gr : 'red',
@@ -99,9 +99,9 @@ var planets = [
     ]
 var moon = {
     x : planets[3].x,
-    y : planets[3].y + 38440 / 30,
+    y : planets[3].y + 384300 / 30,
     r : (3475 / 2) / 30,
-    xs : -40,
+    xs : -4,
     ys :0,
     m : 0.1 / 30	
 }
@@ -292,7 +292,7 @@ function loop() {
     g.strokeText("Flying shuttle " + ship + " Good luck! Velocity is..." + speed ,10,50); 
 
      g.strokeText('The closest planet is ' +Math.floor(closest_dis) + ' pixels away!',0,80);
-       g.strokeText('Fuel: ' + fuel + '',0,120);
+    //   g.strokeText('Fuel: ' + fuel + '',0,120);
     
     
     
@@ -387,22 +387,22 @@ function loop() {
             
             
             g.beginPath()
-            g.moveTo(0, 3)
-            g.lineTo(2, 0)
-            g.lineTo(2, -5)
-            g.lineTo(4, -8)
-            g.lineTo(-4, -8)
-            g.lineTo(-2, -5)
-            g.lineTo(-2, 0)
+            g.moveTo(0, 11)
+            g.lineTo(2, 8)
+            g.lineTo(2, 3)
+            g.lineTo(4, 0)
+            g.lineTo(-4, 0)
+            g.lineTo(-2, 3)
+            g.lineTo(-2, 8)
             g.fillStyle = 'white'
             g.fill()
             
             if(keys.up == true) {
             g.beginPath()
-            g.moveTo(-1, -8)
-            g.lineTo(-2, -10)
-            g.lineTo(2, -10)
-            g.lineTo(1, -8)
+            g.moveTo(-1, 0)
+            g.lineTo(-2, -2)
+            g.lineTo(2, -2)
+            g.lineTo(1, 0)
             g.fillStyle = 'yellow'
             g.fill()
             }
@@ -440,6 +440,9 @@ window.onkeydown = function (e) {
         timewarp = 0
         }
     }
+    
+
+
     if (e.code == 'ArrowLeft')
         keys.left = true
     if (e.code == 'ArrowRight')
