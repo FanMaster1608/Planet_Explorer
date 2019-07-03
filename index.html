@@ -485,15 +485,27 @@ planet = 990
 var ore = Math.floor(Math.random()* 100) + "%"
 function orbitalsurvey() {
     if (planet < 1000) {
-        alert("Preforming Orbital Survey...")
+        alert("Preforming Planetary Survey...")
         sleep(1000)
         alert("Survey complete!\nOre on planet Contains " + ore + " ore")
     }
 }
+
+function plantflag() {
+    g.beginPath()
+        g.moveTo(0, 8)
+        g.lineTo(5, 8)
+        g.lineTo(5, 5)
+        g.lineTo(0.5, 5)
+        g.lineTo(0.5, 0)
+        g.lineTo(0, 0)
+        g.fillStyle = 'red'
+        g.fill()
+}
 </script>
 
 
-<button onclick="orbitalsurvey()">Orbital survey (in progress)</button>
-<button onclick="moveup()">Plant flag (in progress)</button>
+<button onclick="orbitalsurvey()">Planetary survey (in progress)</button>
+<button onclick="plantflag()">Plant flag (in progress)</button>
 <button onclick="moveup()">Mine ore (in progress)</button>
 <button onclick="moveup()">Crew report (in progress)</button>
