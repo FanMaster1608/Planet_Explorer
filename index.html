@@ -503,14 +503,14 @@ function orbitalsurvey() {
 function plantflag() {
     alert("Flag planted!")
 }
-var g = 0
+var a = 0
 function mineore() {
     if (planet < 1000) {
         alert("Mining ore...")
-        while (g < 999) {
+        while (a < 999) {
             fuel = fuel + 1
-            g++
-            if (g > 999) {
+            a++
+            if (a > 999) {
                 alert("Mining done!")
             }
         }
@@ -521,5 +521,5 @@ function mineore() {
 
 <button onclick="orbitalsurvey()">Planetary survey (in progress)</button>
 <button onclick="plantflag()">Plant flag (in progress)</button>
-<button onclick="moveup()">Mine ore (in progress)</button>
+<button onclick="mineore()">Mine ore (in progress)</button>
 <button onclick="moveup()">Crew report (in progress)</button>
