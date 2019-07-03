@@ -296,6 +296,10 @@ function loop() {
       
       if (keys.up == true) {
           fuel = fuel - 0.1
+          if (fuel < 0) {
+            keys.up = false
+            fuel = 0
+        }
       }
      
     
@@ -499,9 +503,18 @@ function orbitalsurvey() {
 function plantflag() {
     alert("Flag planted!")
 }
-
+var g = 0
 function mineore() {
-    work here!
+    if (planet < 1000) {
+        alert("Mining ore...")
+        while (g < 999) {
+            fuel = fuel + 1
+            g++
+            if (g > 999) {
+                alert("Mining done!")
+            }
+        }
+    }
 }
 </script>
 
