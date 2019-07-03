@@ -416,6 +416,7 @@ function loop() {
             g.restore()
         }
         u++
+        
     }   
     
     g.restore()
@@ -480,13 +481,13 @@ function sleep(milliseconds) {
     }
   }
 }
-closest_planet = null
-var ore = Math.random()* 100 + "%"
+planet = 990
+var ore = Math.floor(Math.random()* 100) + "%"
 function orbitalsurvey() {
-    if (Math.floor(closest_planet) < 1000 ) {
+    if (planet < 1000) {
         alert("Preforming Orbital Survey...")
         sleep(1000)
-        alert("Survey complete!/Ore on planet Contains " + ore + " ore")
+        alert("Survey complete!\nOre on planet Contains " + ore + " ore")
     }
 }
 </script>
