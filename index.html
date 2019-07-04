@@ -501,7 +501,7 @@ function orbitalsurvey() {
 }
 
 function plantflag() {
-    alert("Flag planted!")
+    alert("Flag planted!\n__________\n|             |\n|---------\n|\n|")
 }
 var a = 0
 function mineore() {
@@ -516,10 +516,18 @@ function mineore() {
         }
     }
 }
+var crewsays = ["Its very round" , "Its dark out here" , "Where are we?!" , " Do you know how to pilot the ship,\ncause I don't" , " I didn't sign up for this." , "Have we even moved?!" , "I know what we forgot. Oxygen." , "I want to paint my ship." , "It is sooo cold." , "Define zero gravity." , "AHH! a bug!"]
+
+var crewtext = crewsays[Math.floor(Math.random()*crewsays.length)];
+
+function crewreport() {
+    var crewtext = crewsays[Math.floor(Math.random()*crewsays.length - 1)];
+    alert("Crew report: " + crewtext)
+}
 </script>
 
 
-<button onclick="orbitalsurvey()">Planetary survey (in progress)</button>
-<button onclick="plantflag()">Plant flag (in progress)</button>
-<button onclick="mineore()">Mine ore (in progress)</button>
-<button onclick="moveup()">Crew report (in progress)</button>
+<button onclick="orbitalsurvey()">Planetary survey</button>
+<button onclick="plantflag()">Plant flag</button>
+<button onclick="mineore()">Mine ore</button>
+<button onclick="crewreport()">Crew report</button>
