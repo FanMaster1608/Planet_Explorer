@@ -38,7 +38,8 @@ function saveFile(cb) {
     ensureAccessToken(function () {
         $.ajax({
             type : 'PUT',
-            url : 'https://api.github.com/repos/' + db.user + '/' + db.repo + '/contents/' + db.path + '?access_token=' + db.access_token,
+            url : 'https://api.github.com/repos/' + db.user + '/' + db.repo + '/contents/' + db.path,
+            headers: {Authorization: `token ${db.access_token}`},
             data : _.json({
                 path : '/' + db.path,
                 message : 'my commit message',
